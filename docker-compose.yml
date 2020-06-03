@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+
+  postgres:
+    image: postgres:11
+    env_file:
+      - .env-dev
+    ports:
+     - 5432:5432
+
+  redis:
+    image: redis:alpine
+    env_file:
+      - .env-dev
+    ports:
+     - 6379:6379
+  webapp:
+    image: gcr.io/cka-learning-266412/webapp 
+    ports: 
+     - 80:80
+     - 3000:3000
+    env_file:
+     - .env-dev 
+    depends_on:
+    - counter-service
+    - person-service
+  person-service:
+    image: gcr.io/cka-learning-266412/person-service        
+    depends_on:
+    - postgres
+    ports: 
+     - 8080:8080
+    env_file:
+     - .env-dev
+    restart: always
+  counter-service:
+    image: gcr.io/cka-learning-266412/counter-service
+    env_file:
+     - .env-dev       
+    ports: 
+     - 5000:5000
+    depends_on:
+    - redis

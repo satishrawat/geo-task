@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: counter
+  namespace: task
+  labels:
+    app: counter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: counter
+  template:
+    metadata:
+      labels:
+        app: counter
+    spec:
+      containers:
+      - name: counter
+        image: gcr.io/cka-learning-266412/counter-service
+        env:
+        - name: REDIS_HOST
+          value: redis        
+        - name: REDIS_PORT
+          value: "6379"
+        ports:
+        - containerPort: 5000

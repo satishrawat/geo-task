@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: person
+  namespace: task
+  labels:
+    app: person
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: person
+  template:
+    metadata:
+      labels:
+        app: person
+    spec:
+      containers:
+      - name: person
+        image: gcr.io/cka-learning-266412/person-service
+        env:
+        - name: POSTGRES_HOST
+          value: postgres
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        - name: POSTGRES_PORT
+          value: "5432"
+        ports:
+        - containerPort: 8080

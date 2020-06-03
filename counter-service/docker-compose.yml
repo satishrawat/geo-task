@@ -1,0 +1,19 @@
+version: '2'
+services:
+  counter-service:
+    image: counter-service
+    ports:
+     - "5000:5000"    
+    depends_on:
+     - redis
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+  webapp:
+    image: webapp
+    ports: 
+     - 80:80
+    
+    depends_on:
+     - counter-service

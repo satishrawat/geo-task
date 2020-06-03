@@ -1,0 +1,33 @@
+version: '2'
+services:
+  postgres:
+    image: postgres:11    
+    container_name: postgres        
+    ports:
+      - 5432:5432
+    env_file:
+     - ../.env-dev      
+    restart: always
+
+  redis:
+    image: redis
+    ports:
+     - 6379:6379
+    env_file:
+     - ../.env-dev
+  webapp:
+    image: webapp
+    ports: 
+     - 80:80
+    env_file:
+     - ../.env-dev 
+    depends_on:
+     - counter-service
+  counter-service:
+    image: counter-service
+    ports:
+     - 5000:5000
+    env_file:
+     - ../.env-dev       
+    depends_on:
+     - redis

@@ -1,0 +1,31 @@
+Create dockerfile for build the docker image 
+
+:- All Dockerfile placed inside that application dicrectory 
+
+Built the docker image with suitable name .
+here we ahve used the same name for docker-compose and kubernetes deployment so build the image with pulic registry tag .
+for gcr  gcr.io/your-gcp-project-name/image-name
+
+push the images to gcr 
+
+docker compose file configured and placed in the code directory "docker-compose.yml"
+
+up the docker compose .
+
+docker-compose up -d
+
+Access the service on docker host ip 
+
+http://docker-host-ip:80
+
+
+
+For kubernetes deployment .
+
+all deployment files placed in the kubernetes-files directory .
+
+once connect with the gke cluster runn all the files in one go .
+
+kubectl create -f kubecrnetes-file/
+
+Access the service on LoadBalacer ip .
